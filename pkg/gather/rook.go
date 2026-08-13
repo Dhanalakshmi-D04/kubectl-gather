@@ -108,7 +108,12 @@ func (a *RookAddon) gatherCommand(rc *RemoteCommand, command ...string) {
 }
 
 func (a *RookAddon) logCollectorEnabled(cephcluster *unstructured.Unstructured) bool {
-	enabled, found, err := unstructured.NestedBool(cephcluster.Object, "spec", "logCollector", "enabled")
+	enabled, found, err := unstructured.NestedBool(
+		cephcluster.Object,
+		"spec",
+		"logCollector",
+		"enabled",
+	)
 	if err != nil {
 		a.log.Warnf("Cannot get cephcluster .spec.logCollector.enabled: %s", err)
 	}

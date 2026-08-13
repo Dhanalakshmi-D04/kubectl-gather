@@ -37,6 +37,7 @@ ldflags := -s -w \
 	all \
 	kubectl-gather \
 	lint \
+	fmt \
 	spell \
 	test \
 	unit-tests \
@@ -57,6 +58,9 @@ all: kubectl-gather
 
 lint:
 	golangci-lint run ./...
+
+fmt:
+	golangci-lint fmt
 
 spell:
 	codespell -w --skip="go.sum,out,e2e/out"

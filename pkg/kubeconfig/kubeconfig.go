@@ -135,7 +135,12 @@ func loadContexts(contexts []string, kubeconfig string) ([]*Config, error) {
 			return nil, err
 		}
 		if prev, ok := hosts[restConfig.Host]; ok {
-			return nil, fmt.Errorf("duplicate cluster %q from contexts %q and %q", restConfig.Host, prev, context)
+			return nil, fmt.Errorf(
+				"duplicate cluster %q from contexts %q and %q",
+				restConfig.Host,
+				prev,
+				context,
+			)
 		}
 		hosts[restConfig.Host] = context
 		configs = append(configs, &Config{
@@ -190,7 +195,12 @@ func loadKubeconfigs(kubeconfigs []string) ([]*Config, error) {
 		name := nameFromFilename(path)
 
 		if prev, ok := names[name]; ok {
-			return nil, fmt.Errorf("duplicate cluster name %q from files %q and %q", name, prev, path)
+			return nil, fmt.Errorf(
+				"duplicate cluster name %q from files %q and %q",
+				name,
+				prev,
+				path,
+			)
 		}
 		names[name] = path
 
@@ -211,7 +221,12 @@ func loadKubeconfigs(kubeconfigs []string) ([]*Config, error) {
 		}
 
 		if prev, ok := hosts[restConfig.Host]; ok {
-			return nil, fmt.Errorf("duplicate cluster %q from files %q and %q", restConfig.Host, prev, path)
+			return nil, fmt.Errorf(
+				"duplicate cluster %q from files %q and %q",
+				restConfig.Host,
+				prev,
+				path,
+			)
 		}
 		hosts[restConfig.Host] = path
 

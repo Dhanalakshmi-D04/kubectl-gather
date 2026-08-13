@@ -183,7 +183,12 @@ func (a *LogsAddon) listContainers(pod *unstructured.Unstructured) ([]*container
 //
 // See also https://github.com/kubernetes/kubernetes/blob/master/pkg/kubelet/kubelet_pods.go#L1453
 func containerHasPreviousLog(status map[string]interface{}) bool {
-	containerID, found, err := unstructured.NestedString(status, "lastState", "terminated", "containerID")
+	containerID, found, err := unstructured.NestedString(
+		status,
+		"lastState",
+		"terminated",
+		"containerID",
+	)
 	if err != nil || !found {
 		return false
 	}
