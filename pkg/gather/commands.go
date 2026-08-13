@@ -24,7 +24,12 @@ type RemoteCommand struct {
 
 var specialCharacters *regexp.Regexp
 
-func NewRemoteCommand(pod *corev1.Pod, opts *Options, log *zap.SugaredLogger, directory string) *RemoteCommand {
+func NewRemoteCommand(
+	pod *corev1.Pod,
+	opts *Options,
+	log *zap.SugaredLogger,
+	directory string,
+) *RemoteCommand {
 	return &RemoteCommand{pod: pod, opts: opts, log: log, directory: directory}
 }
 

@@ -64,7 +64,12 @@ func (g *Gatherer) sanitizeSecret(item *unstructured.Unstructured) {
 	saltB64 := base64.StdEncoding.EncodeToString(salt[:])
 
 	// If already sanitized, skip to avoid double hashing.
-	existing, found, _ := unstructured.NestedString(obj, "metadata", "annotations", sanitizedAnnotation)
+	existing, found, _ := unstructured.NestedString(
+		obj,
+		"metadata",
+		"annotations",
+		sanitizedAnnotation,
+	)
 	if found {
 		if existing != saltB64 {
 			log.Warnf("Secret %q: already sanitized with different salt %q", name, existing)
@@ -98,7 +103,13 @@ func (g *Gatherer) sanitizeSecret(item *unstructured.Unstructured) {
 	unstructured.RemoveNestedField(obj, "metadata", "annotations", lastAppliedConfigAnnotation)
 
 	// Mark the secret as sanitized with the salt used.
-	if err := unstructured.SetNestedField(obj, saltB64, "metadata", "annotations", sanitizedAnnotation); err != nil {
+	if err := unstructured.SetNestedField(
+		obj,
+		saltB64,
+		"metadata",
+		"annotations",
+		sanitizedAnnotation,
+	); err != nil {
 		log.Warnf("Secret %q: failed to set sanitized annotation: %s", name, err)
 	}
 }

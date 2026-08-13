@@ -306,7 +306,11 @@ func (g *Gatherer) listAPIResources() ([]resourceInfo, error) {
 		}
 	}
 
-	g.log.Debugf("Listed %d api resources in %.3f seconds", len(resources), time.Since(start).Seconds())
+	g.log.Debugf(
+		"Listed %d api resources in %.3f seconds",
+		len(resources),
+		time.Since(start).Seconds(),
+	)
 
 	return resources, nil
 }
@@ -449,7 +453,11 @@ func (g *Gatherer) gatherResources(r *resourceInfo, namespace string) {
 	g.log.Debugf("Gathered %d %q in %.3f seconds", count, r.Name(), time.Since(start).Seconds())
 }
 
-func (g *Gatherer) listResources(r *resourceInfo, namespace string, opts metav1.ListOptions) (*unstructured.UnstructuredList, error) {
+func (g *Gatherer) listResources(
+	r *resourceInfo,
+	namespace string,
+	opts metav1.ListOptions,
+) (*unstructured.UnstructuredList, error) {
 	start := time.Now()
 
 	ctx := context.TODO()
@@ -469,7 +477,12 @@ func (g *Gatherer) listResources(r *resourceInfo, namespace string, opts metav1.
 		return nil, err
 	}
 
-	g.log.Debugf("Listed %d %q in %.3f seconds", len(list.Items), r.Name(), time.Since(start).Seconds())
+	g.log.Debugf(
+		"Listed %d %q in %.3f seconds",
+		len(list.Items),
+		r.Name(),
+		time.Since(start).Seconds(),
+	)
 
 	return list, nil
 }
@@ -498,7 +511,10 @@ func (g *Gatherer) gatherResource(gvr schema.GroupVersionResource, name types.Na
 	g.log.Debugf("Gathered %q in %.3f seconds", key, time.Since(start).Seconds())
 }
 
-func (g *Gatherer) getResource(r *resourceInfo, name types.NamespacedName) (*unstructured.Unstructured, error) {
+func (g *Gatherer) getResource(
+	r *resourceInfo,
+	name types.NamespacedName,
+) (*unstructured.Unstructured, error) {
 	ctx := context.TODO()
 	var opts metav1.GetOptions
 
@@ -530,7 +546,10 @@ func (g *Gatherer) dumpResource(r *resourceInfo, item *unstructured.Unstructured
 	return writer.Flush()
 }
 
-func (g *Gatherer) createResource(r *resourceInfo, item *unstructured.Unstructured) (io.WriteCloser, error) {
+func (g *Gatherer) createResource(
+	r *resourceInfo,
+	item *unstructured.Unstructured,
+) (io.WriteCloser, error) {
 	if r.Namespaced {
 		return g.output.CreateNamespacedResource(item.GetNamespace(), r.Name(), item.GetName())
 	} else {

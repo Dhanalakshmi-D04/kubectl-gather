@@ -83,9 +83,13 @@ type agentWatcher struct {
 	agent *AgentPod
 }
 
-func (w *agentWatcher) WatchWithContext(ctx context.Context, opts metav1.ListOptions) (watch.Interface, error) {
+func (w *agentWatcher) WatchWithContext(
+	ctx context.Context,
+	opts metav1.ListOptions,
+) (watch.Interface, error) {
 	w.agent.Log.Debugf("Watching agent pod %q", w.agent)
-	opts.FieldSelector = fields.OneTermEqualSelector(metav1.ObjectNameField, w.agent.Pod.Name).String()
+	opts.FieldSelector = fields.OneTermEqualSelector(metav1.ObjectNameField, w.agent.Pod.Name).
+		String()
 	return w.agent.Client.CoreV1().Pods(w.agent.Pod.Namespace).Watch(ctx, opts)
 }
 

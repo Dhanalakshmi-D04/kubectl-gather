@@ -110,7 +110,8 @@ func init() {
 		"base64-encoded 16-byte salt for secret hashing (default: randomly generated)")
 	rootCmd.Flags().BoolVarP(&verbose, "verbose", "v", false,
 		"be more verbose")
-	rootCmd.Flags().StringVar(&logFormat, "log-format", "text", "Set the logging format [text, json]")
+	rootCmd.Flags().StringVar(&logFormat, "log-format", "text",
+		"Set the logging format [text, json]")
 	rootCmd.Flags().BoolVar(&mustGatherVersion, "must-gather-version", false,
 		"print must-gather version info and exit")
 

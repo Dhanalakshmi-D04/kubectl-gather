@@ -69,7 +69,12 @@ func createAddons(backend AddonBackend) (map[string]Addon, error) {
 			}
 			for _, resource := range addonInfo.Resources {
 				if other, exists := registry[resource]; exists {
-					return nil, fmt.Errorf("addon %q: resource %q already registered by addon %q", name, resource, other.Name())
+					return nil, fmt.Errorf(
+						"addon %q: resource %q already registered by addon %q",
+						name,
+						resource,
+						other.Name(),
+					)
 				}
 				registry[resource] = addon
 			}

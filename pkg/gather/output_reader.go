@@ -55,7 +55,13 @@ func (r *OutputReader) ReadResource(namespace, resource, name string) ([]byte, e
 	if namespace == "" {
 		resourcePath = filepath.Join(r.base, clusterDir, resource, name+resourceSuffix)
 	} else {
-		resourcePath = filepath.Join(r.base, namespacesDir, namespace, resource, name+resourceSuffix)
+		resourcePath = filepath.Join(
+			r.base,
+			namespacesDir,
+			namespace,
+			resource,
+			name+resourceSuffix,
+		)
 	}
 	return os.ReadFile(resourcePath)
 }
